@@ -1,0 +1,40 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: appserver
+    run_list:
+      - recipe[efg::appserver]
+    attributes:
+  - name: database
+    run_list:
+      - recipe[efg::database]
+    attributes:
+  - name: deployable
+    run_list:
+      - recipe[efg::deployable]
+    attributes:
+  - name: monitoring
+    run_list:
+      - recipe[efg::monitoring]
+    attributes:
+  - name: backup
+    run_list:
+      - recipe[efg::backup]
+    attributes:
+  - name: logging
+    run_list:
+      - recipe[efg::logging]
+    attributes:
+  - name: base
+    run_list:
+      - recipe[efg::base]
+    attributes:
+
