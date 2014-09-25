@@ -2,24 +2,31 @@ require 'spec_helper'
 
 describe 'EFG Deployable Recipe' do
 
-  it 'should create a deploy user' do
+  it 'createa a deploy user' do
     expect(user 'deploy').to exist
   end
 
-  it 'should add the SSH key' do
+  it 'adds an SSH key' do
     expect(file('/home/deploy/.ssh/authorized_keys').content).to match /MzmgYqJiQ4V/
   end
 
-  it 'should install sqlite' do
+  it 'installs the sqlite development library' do
     expect(package 'libsqlite3-dev').to be_installed
   end
 
-  it 'should install git' do
+  it 'installs git' do
     expect(package 'git').to be_installed
   end
 
-  it 'should install bundler' do
+  it 'installs bundler' do
     expect(command('gem list')).to return_stdout /^bundler/
+  end
+
+  it 'renders a database.yml file' do
+    config = '/home/deploy/efg/shared/config/database.yml'
+    expect(file(config)).to be_file
+    expect(file(config)).to be_owned_by 'deploy'
+    expect(file(config).content).to match /production:/
   end
 
 end

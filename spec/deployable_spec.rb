@@ -21,8 +21,8 @@ RSpec.configure do |config|
       expect(chef_run).to create_user('deploy').with({shell: '/bin/bash', supports: {manage_home: true}})
     end
 
-    it 'creates a home directory' do
-      expect(chef_run).to create_directory('/home/deploy').with({owner: 'deploy', mode: '0755'})
+    it 'creates a home and shared config directory' do
+      expect(chef_run).to create_directory('/home/deploy/efg/shared/config').with(owner: 'deploy', mode: '0755', recursive: true)
     end    
 
     it 'creates an ssh directory' do
@@ -48,6 +48,11 @@ RSpec.configure do |config|
 
     it 'installs bundler' do
       expect(chef_run).to install_gem_package 'bundler'
+    end
+    
+    it 'renders a database config' do
+
+      expect(chef_run).to render_file('/home/deploy/efg/shared/config/database.yml').with_content(/production/)
     end
 
   end

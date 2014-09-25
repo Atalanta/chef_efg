@@ -2,6 +2,7 @@ include_recipe 'efg::appserver'
 
 package 'libsqlite3-dev'
 package 'git'
+package 'libsqlite3-dev'
 gem_package 'bundler'
 
 user 'deploy' do
@@ -9,9 +10,10 @@ user 'deploy' do
   supports :manage_home => true
 end
   
-directory '/home/deploy' do
+directory '/home/deploy/efg/shared/config' do
   owner 'deploy'
   mode '0755'
+  recursive true
 end
 
 directory '/home/deploy/.ssh' do
@@ -25,4 +27,8 @@ template '/home/deploy/.ssh/authorized_keys' do
   mode '0600'
 end
 
-package 'libsqlite3-dev'
+template '/home/deploy/efg/shared/config/database.yml' do
+  owner 'deploy'
+  source 'database.yml.erb'
+end
+
