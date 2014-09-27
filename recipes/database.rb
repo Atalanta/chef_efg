@@ -35,3 +35,17 @@ mysql_database_user 'efg' do
   password 'efg'
   action :grant
 end
+
+execute 'restore-db' do
+  command 'mysql -uroot -pilikerandompasswords efg < /root/anon_dump.sql'
+  action :nothing
+end
+
+remote_file '/root/anon_dump.sql' do
+  source 'http://178.62.227.6/efg_development_2014-07-21.sql'
+  notifies :run, 'execute[restore-db]', :immediately
+end
+
+cookbook_file '/home/deploy/new_user.rb' do
+  source 'new_user.rb'
+end

@@ -7,3 +7,10 @@ passenger_nginx_vhost 'efg' do
   environment 'production'
   root '/home/deploy/efg/current/public'
 end
+
+passenger_nginx_vhost 'default' do
+  action :delete
+  server_name 'localhost'
+  root '/var/www/html'
+  notifies :restart, 'service[nginx]'
+end

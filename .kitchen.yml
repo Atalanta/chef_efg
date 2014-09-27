@@ -9,6 +9,9 @@ platforms:
   - name: ubuntu-14.04
 
 suites:
+  - name: ci
+    run_list:
+      - recipe[efg::ci]
   - name: appserver
     run_list:
       - recipe[efg::appserver]

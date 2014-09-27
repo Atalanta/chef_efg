@@ -31,6 +31,9 @@ describe 'EFG App Server' do
       expect(file('/etc/nginx/sites-enabled/efg').content).to match /^\s+root\s+\/home\/deploy\/efg\/current\/public;$/
     end
 
+    it 'removes the default virtual host' do
+      expect(::File.exists? '/etc/nginx/sites-enabled/default').to be false
+    end
     
   end
 
