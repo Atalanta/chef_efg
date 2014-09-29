@@ -2,6 +2,14 @@
 
 - Get database secrets from encrypted atrribute or databag
 
+## 0.6.1
+
+- Fix: remove remote_file resource for anon db
+
+## 0.6.0
+
+- Add base recipe
+
 ## 0.5.0
 
 - Add CI recipe

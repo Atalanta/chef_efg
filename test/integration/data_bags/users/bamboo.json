@@ -1,0 +1,7 @@
+{
+  "id": "bamboo",
+  "groups": [ "bamboo", "bastion" ],
+  "shell": "\/bin\/bash",
+  "comment": "New Bamboo",
+  "ssh_keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDaHp88/S7Yj/TCXNQhx8BziRpqd1vBVLEj9gA3gK1Y5mA0yxDs7GOWQ7q+swVs1w2n6O3ITwTIxuCw9AwF4y7ca/spUBfy9AZTVT35sjJ5+Dpxo82AqJI8I/qvTs5zD0GzPM3Q8SXnIq8bBBIJE6seacg7XaD16jTC490CkIE7grr4XhY3N/IbNP1jAyLOpDATbmsA/Keh4RuFOcpdg2+imAnJnUc/hGHXxeuiV4wW9eyMLAslTnxe+rCTrCiCBPD6Sur8s7Sw7s3dZVhydu6PaZrQ4rUsULhodTqLIz1PUCO+Tt22qMbk4HivSG26J2KZCuKZFJrSSfOfMb6jZhcx snsefg@atalanta-systems.com", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAQMsxnLxBG78EownR7EyBb05fq1hMILmvn/EGMty7eMxHihnS8+bo/7M9/PDxnnbG9hpLpDKHBWUFgTouPD25y/VQ0GYC2HL8U7RhLDrLjo+nhqaUQTELfp++c9o2pbO3gFqRkMWu0Xnn8MYwxwYKsX/r0FANEqngcBTIje4zPcLjAf1pH9EaS04c00Thq8FnybBH8dGJeotASP30HGLzGRaLlFJh4dnJ/xi9HC/Hk/dDtzpu7CjFV27I4xuw/LC4hGjF0cY+QeGsEreXbMFeAXZ8NllGsTLLXB7InOQgVmDK7VhgS1da/lwW219szA8skCXZHvar/MzmgYqJiQ4V kitchen@tk00.cheftraining.eu"]
+}
