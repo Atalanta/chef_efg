@@ -41,11 +41,6 @@ execute 'restore-db' do
   action :nothing
 end
 
-remote_file '/root/anon_dump.sql' do
-  source 'http://178.62.227.6/efg_development_2014-07-21.sql'
-  notifies :run, 'execute[restore-db]', :immediately
-end
-
-cookbook_file '/home/deploy/new_user.rb' do
+cookbook_file '/home/bamboo/new_user.rb' do
   source 'new_user.rb'
 end
