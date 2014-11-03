@@ -10,3 +10,4 @@ end
 
 include_recipe 'sudo'
 include_recipe 'fail2ban'
+include_recipe 'dyn-iptables'
