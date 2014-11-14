@@ -5,7 +5,7 @@ passenger_nginx_vhost 'efg' do
   port 80
   server_name 'efg.net'
   environment 'production'
-  root '/home/deploy/efg/current/public'
+  root '/home/bamboo/efg/current/public'
 end
 
 passenger_nginx_vhost 'default' do
