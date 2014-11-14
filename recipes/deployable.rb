@@ -2,47 +2,48 @@ include_recipe 'efg::appserver'
 
 package 'libsqlite3-dev'
 package 'git'
-package 'libsqlite3-dev'
 gem_package 'bundler'
 
-user 'deploy' do
-  shell '/bin/bash'
-  supports :manage_home => true
-end
+# user 'deploy' do
+#   shell '/bin/bash'
+#   supports :manage_home => true
+# end
 
-directory '/home/deploy' do
-  owner 'deploy'
+# directory '/home/deploy' do
+#   owner 'deploy'
+#   mode '0755'
+# end
+#
+# directory '/home/deploy/.ssh' do
+#   owner 'deploy'
+#   mode '0700'
+# end
+
+# template '/home/deploy/.ssh/authorized_keys' do
+#   source 'authorized_keys.erb'
+#   owner 'deploy'
+#   mode '0600'
+# end
+
+directory '/home/bamboo/efg' do
+  owner 'bamboo'
   mode '0755'
 end
 
-directory '/home/deploy/efg' do
-  owner 'deploy'
-  mode '0755'
-end
-
-directory '/home/deploy/efg/shared' do
-  owner 'deploy'
+directory '/home/bamboo/efg/shared' do
+  owner 'bamboo'
   mode '0755'
 end
   
-directory '/home/deploy/efg/shared/config' do
-  owner 'deploy'
+directory '/home/bamboo/efg/shared/config' do
+  owner 'bamboo'
   mode '0755'
 end
 
-directory '/home/deploy/.ssh' do
-  owner 'deploy'
-  mode '0700'
-end
 
-template '/home/deploy/.ssh/authorized_keys' do
-  source 'authorized_keys.erb'
-  owner 'deploy'
-  mode '0600'
-end
 
-template '/home/deploy/efg/shared/config/database.yml' do
-  owner 'deploy'
+template '/home/bamboo/efg/shared/config/database.yml' do
+  owner 'bamboo'
   source 'database.yml.erb'
 end
 
