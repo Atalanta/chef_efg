@@ -4,10 +4,8 @@ maintainer_email 'you@example.com'
 license          'all_rights'
 description      'Installs/Configures efg'
 long_description 'Installs/Configures efg'
-version          '0.7.0'
-depends          'mysql'
-depends          'database'
-depends          'passenger_nginx'
-depends          'jenkins'
-depends          'sudo'
-depends          'users'
+version          '0.8.0'
+%w{ database dyn-iptables fail2ban jenkins mysql
+    passenger_nginx sudo users }.each do |cb|
+  depends cb
+end
