@@ -1,6 +1,16 @@
-# In development / pipeline
+## 0.9.0
 
-- Get database secrets from encrypted atrribute or databag
+- Use search to find DB server
+
+## 0.8.0
+
+- Add: EFG Environment attribute recipes
+- Change: virtual host details from attribute
+- Add: Example data bags for each environment
+- Add: Get database information from databag
+- Change: Get database.yml values from databag
+- Add: vagrant user to test databag
+- Add: Test databags for each environment
 
 ## 0.6.1
 
