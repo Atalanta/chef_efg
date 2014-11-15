@@ -33,6 +33,7 @@ end
 mysql_database_user application_data['username'] do
   connection mysql_connection_info
   password application_data['password']
+  host '192.168.1.0/255.255.255.0'
   action :grant
 end
 
