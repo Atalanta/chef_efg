@@ -12,7 +12,7 @@ end
 passenger_nginx_vhost "#{env}.efg.nbwd.co.uk" do
   action [:create, :enable]
   port 80
-  server_name '#{env}.efg.nbwd.co.uk'
+  server_name "#{env}.efg.nbwd.co.uk"
   environment env
   root '/home/bamboo/efg/current/public'
 end
