@@ -9,6 +9,13 @@ platforms:
   - name: ubuntu-14.04
 
 suites:
+  - name: training
+    run_list:
+      - recipe[efg::training]
+      - recipe[efg::base]
+      - recipe[efg::deployable]
+      - recipe[efg::database]
+    data_bags_path: "test/integration/data_bags"
   - name: ci
     run_list:
       - recipe[efg::ci]
@@ -18,7 +25,6 @@ suites:
         - ["private_network", {ip: "192.168.33.33"}]
   - name: base
     run_list:
-      - recipe[chef-solo-search]
       - recipe[efg::base]
     attributes:
     data_bags_path: "test/integration/data_bags"
@@ -45,9 +51,5 @@ suites:
   - name: logging
     run_list:
       - recipe[efg::logging]
-    attributes:
-  - name: base
-    run_list:
-      - recipe[efg::base]
     attributes:
 

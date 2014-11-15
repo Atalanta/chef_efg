@@ -1,34 +1,8 @@
-production:
+<%= @application_data['id'] %>:
   adapter: mysql2
   pool: 5
   encoding: utf8
   host: localhost
-  username: efg
-  password: efg
-  database: efg
-
-development:
-  adapter: mysql2
-  pool: 5
-  encoding: utf8
-  host: localhost
-  username: efg
-  password: efg
-  database: efg_development
-
-test:
-  adapter: mysql2
-  pool: 5
-  encoding: utf8
-  username: efg
-  password: efg
-  host: localhost
-  # run specs in parallel in GDS environments
-  database: efg_test<%= ENV['TEST_ENV_NUMBER'] %>
-
-# Used for data extract rake task
-extract:
-  adapter: sqlite3
-  # If you try to run this against an NFS mounted directory, it will be slow!
-  # database: /var/il0-data/efg.sqlite
-  database: il0-data/efg.sqlite
+  username: <%= @application_data['username'] %>
+  password: <%= @application_data['password'] %>
+  database: <%= @application_data['database'] %>
