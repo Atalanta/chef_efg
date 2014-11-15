@@ -1,7 +1,7 @@
 include_recipe 'mysql::server'
 include_recipe 'database::mysql'
 
-#databases = data_bag_item('efg', 'databases')
+application_data = data_bag_item('efg', node['efg']['efg_environment'])
 
 service 'mysql-init' do
   service_name 'mysql'
@@ -25,20 +25,15 @@ mysql_connection_info = {:host => "localhost",
                          :username => 'root',
                          :password => node['mysql']['server_root_password']}
 
-mysql_database 'efg' do
+mysql_database application_data['database'] do
   connection mysql_connection_info
   action :create
 end
 
-mysql_database_user 'efg' do
+mysql_database_user application_data['username'] do
   connection mysql_connection_info
-  password 'efg'
+  password application_data['password']
   action :grant
-end
-
-execute 'restore-db' do
-  command 'mysql -uroot -pilikerandompasswords efg < /root/anon_dump.sql'
-  action :nothing
 end
 
 cookbook_file '/home/bamboo/new_user.rb' do
