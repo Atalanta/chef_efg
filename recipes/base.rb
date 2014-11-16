@@ -10,3 +10,8 @@ end
 
 include_recipe 'sudo'
 include_recipe 'openssh'
+
+cookbook_file '/etc/sysctl.d/10-network-security.conf' do
+  source 'network-security.conf'
+
+end
