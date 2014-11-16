@@ -66,22 +66,16 @@ describe 'EFG Base Recipe' do
     expect_network_security_to_match /icmp_echo_ignore_\w+ = 1/ 
   end
 
-  it 'runs the procps service' do
-    expect(service 'procps').to be_running
-  end
-
   it 'installs a root kit checker' do
     expect(package 'chkrootkit').to be_installed
     expect(package 'rkhunter').to be_installed
   end
 
   it 'runs the root kit check weekly' do
-    expect(file '/etc/cron.weekly/rkhunter_update').to exist
-    expect(file '/etc/cron.weekly/rkhunter_run').to exist
-    expect(file '/etc/cron.weekly/chkrootkit').to exist
-    expect(file '/etc/cron.daily/rkhunter_update').not_to exist
-    expect(file '/etc/cron.daily/rkhunter_run').not_to exist
-    expect(file '/etc/cron.daily/chkrootkit').not_to exist
+    expect(file '/etc/cron.weekly/rkhunter').to be_file
+    expect(file '/etc/cron.weekly/chkrootkit').to be_file
+    expect(file '/etc/cron.daily/rkhunter_update').not_to be_file
+    expect(file '/etc/cron.daily/chkrootkit').not_to be_file
   end
 
   it 'enables process accounting' do
@@ -89,7 +83,7 @@ describe 'EFG Base Recipe' do
   end
 
   it 'sends a process accounting summary once a week' do
-    expect(file '/etc/cron.weekly/pacct-report').to exist
+    expect(file '/etc/cron.weekly/pacct-report').to be_file
   end
 
   it 'installs logwatch' do
@@ -97,8 +91,8 @@ describe 'EFG Base Recipe' do
   end
 
   it 'sends logwatch data weekly' do
-    expect(file '/etc/cron.weekly/00logwatch').to exist
-    expect(file '/etc/cron.daily/00logwatch').not_to exist
+    expect(file '/etc/cron.weekly/00logwatch').to be_file
+    expect(file '/etc/cron.daily/00logwatch').not_to be_file
   end
  
   it 'installs fail2ban' do
