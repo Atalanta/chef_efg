@@ -11,6 +11,11 @@ end
 include_recipe 'sudo'
 include_recipe 'openssh'
 
+execute 'Update kernel config' do
+  command 'service procps start'
+  action :nothing
+end
+
 cookbook_file '/etc/sysctl.d/10-network-security.conf' do
   source 'network-security.conf'
 
