@@ -63,7 +63,7 @@ describe 'EFG Base Recipe' do
   end
 
   it 'ignores directed pings' do
-    expect_network_security_to_match /icmp_echo_ignore_\w+ = 0/ 
+    expect_network_security_to_match /icmp_echo_ignore_\w+ = 1/ 
   end
 
   it 'runs the procps service' do
