@@ -33,6 +33,7 @@ end
 include_recipe 'sudo'
 include_recipe 'openssh'
 include_recipe 'fail2ban'
+include_recipe 'chef-client::delete_validation'
 
 execute 'Update kernel config' do
   command 'service procps start'
