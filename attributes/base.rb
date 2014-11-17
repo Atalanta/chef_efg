@@ -18,7 +18,7 @@ default['fail2ban']['filters'] = {
 default['fail2ban']['services'] = {
   'ssh' => {
         "enabled" => "true",
-        "port" => "ssh",
+        "port" => "21322",
         "filter" => "sshd",
         "logpath" => node['fail2ban']['auth_log'],
         "maxretry" => "6"
@@ -28,7 +28,7 @@ default['fail2ban']['services'] = {
         "port" => "http,https",
         "filter" => "nginx-req-limit",
         "logpath" => "/var/log/nginx/*error.log",
-        "action" => 'iptables-multiport[name=ReqLimit, port="http,https", protocol=tcp]',
+#        "action" => 'iptables-multiport[name=ReqLimit, port="http,https", protocol=tcp]',
         "maxretry" => "6"
      }
 }
