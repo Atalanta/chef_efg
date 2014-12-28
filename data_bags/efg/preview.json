@@ -1,5 +1,6 @@
 {"id": "preview",
 "database": "efg_preview",
 "username": "efg",
-"password": "efg"
+"password": "efg",
+"environment": "development"
 }

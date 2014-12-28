@@ -1,5 +1,6 @@
 {"id": "production",
 "database": "efg",
 "username": "efg",
-"password": "efg"
+"password": "efg",
+"environment": "production"
 }

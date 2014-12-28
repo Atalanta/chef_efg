@@ -1,5 +1,6 @@
 {"id": "staging",
 "database": "efg_staging",
 "username": "efg",
-"password": "efg"
+"password": "efg",
+"environment": "development"
 }
