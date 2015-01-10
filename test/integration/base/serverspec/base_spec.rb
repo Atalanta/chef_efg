@@ -30,10 +30,6 @@ describe 'EFG Base Recipe' do
     expect(file('/etc/ssh/sshd_config').content).to match /^PermitRootLogin no/
   end
 
-  it 'runs ssh on a high port' do
-    expect(file('/etc/ssh/sshd_config').content).to match /^Port \d{4,5}/
-  end
-
   it 'ignores ICMP broadcast requests' do
     expect_network_security_to_match /icmp_echo_ignore_broadcasts = 1/ 
   end
@@ -94,6 +90,10 @@ describe 'EFG Base Recipe' do
     expect(file '/etc/cron.weekly/00logwatch').to be_file
     expect(file '/etc/cron.daily/00logwatch').not_to be_file
   end
+
+  it 'installs emacs' do
+    expect(package 'emacs').to be_installed
+  end
  
   it 'installs fail2ban' do
     expect(package 'fail2ban').to be_installed
@@ -103,9 +103,67 @@ describe 'EFG Base Recipe' do
     expect(file('/etc/fail2ban/jail.local').content).to match /filter = ssh/
   end
 
-  it 'protects against HTTP DDOS' do
-    expect(file('/etc/fail2ban/filter.d/nginx-req-limit.conf').content).to match /failregex = limiting requests, excess:/
-    expect(file('/etc/fail2ban/jail.local').content).to match /filter = nginx-req-limit/
+  it 'ensures policykit is not installed' do
+    expect(package('policykit-1')).not_to be_installed
+  end
+
+  it 'ensures landscape is not installed' do
+    expect(package('landscape-common')).not_to be_installed
+  end
+
+  it 'ensures log files are not world readable' do
+    group_rw_logs = %w[
+/var/log/alternatives.log
+/var/log/alternatives.log.1
+/var/log/apt/history.log
+/var/log/apt/history.log.1.gz
+/var/log/boot.log
+/var/log/bootstrap.log
+/var/log/dpkg.log
+/var/log/dpkg.log.1
+/var/log/faillog
+/var/log/installer/hardware-summary
+/var/log/installer/initial-status.gz
+/var/log/installer/lsb-release
+/var/log/installer/media-info
+/var/log/installer/status
+/var/log/unattended-upgrades/unattended-upgrades-shutdown.log
+]
+    
+    group_rwx_logs = %w[
+/var/log/lastlog
+/var/log/wtmp
+/var/log/wtmp.1
+]
+    
+    group_rw_logs.each do |log|
+      expect(file log).to be_mode '640'
+    end
+    
+    group_rwx_logs.each do |log|
+      expect(file log).to be_mode '660'
+    end
+  end
+  
+  it 'minimises instances of setuid and setgid' do
+    expect(file '/sbin/mount.nfs').to be_mode '755'
+    expect(file '/usr/bin/pkexec').to be_mode '755'
+    expect(file '/usr/lib/dbus-1.0/dbus-daemon-launch-helper').to be_mode '754'
+    expect(file '/usr/lib/emacs/24.3/x86_64-linux-gnu/movemail').to be_mode '755'
+    expect(file '/usr/sbin/postdrop').to be_mode '555'
+    expect(file '/usr/sbin/postqueue').to be_mode '555'
+  end
+
+  it 'should accept ssh traffic from anywhere' do
+    expect(iptables).to have_rule '-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT'
+  end
+
+  it 'displays a fierce warning on ssh attempts and logins' do
+    expect(file('/etc/issue').content).to match /Unauthorized.*forbidden.*prosecuted/m
+  end
+  
+  it 'removes the validation pem' do
+    expect(file('/etc/chef/validation.pem')).not_to be_file
   end
 end
 
