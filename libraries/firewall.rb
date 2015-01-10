@@ -6,7 +6,7 @@ iptables -P INPUT ACCEPT
 iptables -P OUTPUT ACCEPT
 iptables -F
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
 iptables -P INPUT DROP
 EOF
   end
@@ -18,8 +18,8 @@ iptables -P OUTPUT ACCEPT
 iptables -F
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -s 192.168.1.2 -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 iptables -P INPUT DROP
 EOF
   end
@@ -30,9 +30,9 @@ iptables -P INPUT ACCEPT
 iptables -P OUTPUT ACCEPT
 iptables -F
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A INPUT -s 192.168.1.2 -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -s 192.168.1.108 -p tcp --dport 3306 -j ACCEPT
-iptables -A INPUT -s 192.168.1.110 -p tcp --dport 3306 -j ACCEPT
+iptables -A INPUT -s 192.168.1.2 -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -s 192.168.1.108 -p tcp -m tcp --dport 3306 -j ACCEPT
+iptables -A INPUT -s 192.168.1.110 -p tcp -m tcp --dport 3306 -j ACCEPT
 iptables -P INPUT DROP
 EOF
   end
@@ -43,8 +43,8 @@ iptables -P INPUT ACCEPT
 iptables -P OUTPUT ACCEPT
 iptables -F
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A INPUT -s 192.168.1.2 -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+iptables -A INPUT -s 192.168.1.2 -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT
 iptables -P INPUT DROP
 EOF
   end
