@@ -1,7 +1,28 @@
+include_recipe 'chef-client::delete_validation'
+include_recipe 'apt-repo'
+
+
+package 'emacs'
+
 execute 'Save iptables' do
   command 'iptables-save'
   action :nothing
 end
+
+ppa 'ppa:brightbox/ruby-ng'
+
+package 'ruby2.1'
+package 'ruby2.1-dev'
+package 'ruby-switch'
+
+
+
+execute 'Set default Ruby to 2.1' do
+  command 'ruby-switch --set ruby2.1'
+  not_if 'ruby-switch --check | grep -q ruby2\.1' 
+end
+
+include_recipe 'backup'
 
 bash 'Basic Firewall' do
   code ruleset(node)
@@ -88,8 +109,12 @@ file '/usr/lib/dbus-1.0/dbus-daemon-launch-helper' do
   mode '0754'
 end
 
-file '/usr/lib/policykit-1/polkit-agent-helper-1' do
-  mode '0755'
+package 'policykit-1' do
+  action :remove
+end
+
+package 'landscape-common' do
+  action :remove
 end
 
 file '/usr/lib/emacs/24.3/x86_64-linux-gnu/movemail' do
@@ -164,16 +189,9 @@ file '/var/log/installer/media-info' do
   mode '0640'
 end
 
-file '/var/log/nginx/error.log' do
-  mode '0640'
-end
-
 file '/var/log/alternatives.log.1' do
   mode '0640'
 end
 
-file '/var/log/landscape/sysinfo.log' do
-  mode '0640'
-end
 
 
