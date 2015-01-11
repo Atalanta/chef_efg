@@ -40,3 +40,39 @@ end
 cookbook_file '/home/bamboo/new_user.rb' do
   source 'new_user.rb'
 end
+
+skyscape = data_bag_item('secrets','skyscape')
+
+backup_model :efg do
+  description 'EFG Backup'
+
+  definition <<-DEF
+    split_into_chunks_of 4000
+
+    database MySQL do |db|
+      db.name = '#{application_data['database']}'
+      db.username = '#{application_data['username']}'
+      db.password = '#{application_data['password']}'
+    end
+
+    compress_with Gzip
+
+    store_with S3 do |s3|
+      s3.access_key_id = '#{skyscape['skyscape_access_key_id']}'
+      s3.secret_access_key = '#{skyscape['skyscape_secret_access_key']}'
+      s3.bucket = '#{node['fqdn']}_backup'
+      s3.path              = '/'
+      s3.keep = 14 
+      s3.max_retries = 1
+      s3.fog_options = {
+        :endpoint => 'https://cas00001.skyscapecloud.com:8443',
+        :path_style => true
+      }
+    end
+  DEF
+
+  schedule({
+    :minute => 0,
+    :hour   => 0
+  })
+end 
